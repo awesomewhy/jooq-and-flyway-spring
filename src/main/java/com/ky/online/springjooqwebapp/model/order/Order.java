@@ -1,5 +1,7 @@
-package com.ky.online.springjooqwebapp.model;
+package com.ky.online.springjooqwebapp.model.order;
 
+import com.ky.online.springjooqwebapp.model.SomeMan.SomeMan;
+import com.ky.online.springjooqwebapp.model.user.User;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -17,10 +19,6 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
-
     @Column(name = "name")
     private String name;
 
@@ -29,6 +27,14 @@ public class Order {
 
     @Column(name = "price")
     private BigDecimal price;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "someman_id")
+    private SomeMan someman;
 
     @Override
     public boolean equals(Object o) {

@@ -68,11 +68,22 @@
             <artifactId>jooq-codegen-maven</artifactId>
             <version>3.19.7</version>
         </dependency>
-
     </dependencies>
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-maven-plugin</artifactId>
+                <version>8.0.0</version>
+                <configuration>
+                    <user>postgres</user>
+                    <password>postgres</password>
+                    <schemas>
+                        <schema>jooqschema</schema>
+                    </schemas>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>

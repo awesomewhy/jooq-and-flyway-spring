@@ -25,6 +25,18 @@ create table if not exists jooqschema.orders (
     on delete cascade
 );
 
+create table if not exists jooqschema.orders (
+    id          bigint primary key generated always as identity,
+    name     bigint,
+    name        text,
+    description text,
+    price       numeric(38, 2)
+
+    constraint fk_t_order_user_id foreign key (user_id) references jooqschema.users(id)
+    on update cascade
+    on delete cascade
+);
+
 
 
 

@@ -1,16 +1,14 @@
 package com.ky.online.springjooqwebapp.repository;
 
-import java.util.List;
+import com.ky.online.springjooqwebapp.model.user.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
+
 import java.util.Optional;
 
-public interface UserRepository<T> {
-    T save(T tablePojo);
-
-    T update(T tablePojo, int id);
-
-    List<T> findAll();
-
-    Optional<T> findById(int id);
-
-    boolean deleteById(int id);
+@Repository
+public interface UserRepository extends JpaRepository<User, Long> {
+    @Query("select u from User u where u.id = :id")
+    Optional<User> findById(Long id);
 }
