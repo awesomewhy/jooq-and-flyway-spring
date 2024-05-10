@@ -1,16 +1,17 @@
 package com.ky.online.springjooqwebapp.repository;
 
-import com.fasterxml.jackson.databind.deser.impl.CreatorCandidate;
+import com.ky.online.springjooqwebapp.model.jooqschema.tables.records.OrdersRecord;
 import com.ky.online.springjooqwebapp.model.order.Order;
-import org.hibernate.annotations.Parameter;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface OrderRepository extends JpaRepository<Order, Long> {
-    @Query("select o from Order o join fetch o.someman where o.id = :id")
+public interface OrderRepository {
     Optional<Order> findById(Long id);
+    Order update(Order order);
+    Order save(Order order);
+    List<Order> findAll();
+    void deleteById(Long id);
 }

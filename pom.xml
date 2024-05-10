@@ -31,6 +31,10 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jooq</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <dependency>
@@ -102,22 +106,43 @@
                 <version>3.19.7</version>
                 <executions>
                     <execution>
+                        <id>generate-postgres</id>
                         <phase>generate-sources</phase>
                         <goals>
                             <goal>generate</goal>
                         </goals>
                         <configuration>
+                            <!-- JDBC connection parameters -->
                             <jdbc>
                                 <driver>org.postgresql.Driver</driver>
                                 <url>jdbc:postgresql://localhost:5432/jooqdb</url>
                                 <user>postgres</user>
                                 <password>postgres</password>
                             </jdbc>
+                            <!-- Generator parameters -->
                             <generator>
+                                <database>
+                                    <name>
+                                        org.jooq.meta.postgres.PostgresDatabase
+                                    </name>
+                                    <includes>.*</includes>
+                                    <excludes/>
+                                    <inputSchema>jooqschema</inputSchema>
+                                </database>
+                                <generate>
+                                    <pojos>true</pojos>
+                                    <pojosEqualsAndHashCode>true</pojosEqualsAndHashCode>
+                                    <javaTimeTypes>true</javaTimeTypes>
+                                    <fluentSetters>true</fluentSetters>
+                                </generate>
                                 <target>
-                                    <packageName>com.ky.online.springjooqwebapp</packageName>
-                                    <directory>src/main/java</directory>
+                                    <packageName>com.ky.online.springjooqwebapp.model</packageName>
+                                    <directory>target/generated-sources/jooq</directory>
                                 </target>
+                                <database>
+                                    <name>org.jooq.meta.postgres.PostgresDatabase</name>
+                                    <excludes>pg_catalog.* | information_schema.*</excludes>
+                                </database>
                             </generator>
                         </configuration>
                     </execution>
